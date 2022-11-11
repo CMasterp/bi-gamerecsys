@@ -1,46 +1,20 @@
-import React, { useState } from "react";
-import configureStore from "./store";
-
+import React from 'react';
 import {
-  Paper,
-  createMuiTheme,
-  ThemeProvider,
-  Switch,
-} from "@material-ui/core";
-import { Provider } from "react-redux";
+  BrowserRouter, Route, Routes, Redirect
+} from 'react-router-dom';
 
-import MaterialComps from "./apps/materials/index";
-import DogView from "./apps/dogs/component/DogView";
-
-const store = configureStore();
+import HomePage from "./apps/HomePage/index";
+import MenuPage from "./apps/MenuPage/index";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
 
-  const theme = createMuiTheme({
-    typography: {
-      fontFamily: `"Roboto", "Open Sans", "Helvetica", "Arial", sans-serif`,
-    },
-    palette: {
-      type: darkMode ? "dark" : "light",
-      primary: {
-        main: "#ec407a",
-      },
-      secondary: {
-        main: "#ff80ab",
-      },
-    },
-  });
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Paper style={{ height: "100vh" }}>
-          <MaterialComps />
-          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
-          <DogView />
-        </Paper>
-      </ThemeProvider>
-    </Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={ <HomePage />} />
+        <Route exact path="/menu" element={ <MenuPage /> } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
