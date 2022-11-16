@@ -7,9 +7,8 @@ import {
   ThemeProvider
 } from "@material-ui/core";
 import { Provider } from "react-redux";
-import IconButton from "@material-ui/core/IconButton";
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import BackgroundImage from '../../img/backgroundimg.png';
+import BackgroundImage from '../../img/back.png';
+import ChooseMode from '../../img/choosemode.png';
 
 const store = configureStore();
 
@@ -32,10 +31,10 @@ const MenuPage = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
-          <IconButton aria-label="play icon" size="large" color="secondary">
-            <PlayCircleOutlineIcon />
-          </IconButton>
+        <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <div>
+            <img style={{ width: "100%", height: "100%" }} src={ChooseMode} alt="choosemode" />
+          </div>
         </Box>
       </ThemeProvider>
     </Provider>
