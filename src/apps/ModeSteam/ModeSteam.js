@@ -17,9 +17,19 @@ const store = configureStore();
 
 function auth(credential) {
   const url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&steamid='+credential+'&include_appinfo=1&include_played_free_games=1&format=json';
+  const options = {
+    method: 'GET',
+    withCredentials: true,
+    crossorigin: true,
+    mode: 'no-cors',
+  }
 
-  return fetch(url)
-  .then(res => res.json())
+  return fetch(url, {
+    method: 'GET',
+    withCredentials: true,
+    crossorigin: true,
+    mode: 'no-cors'
+  }).then(res => res.json())
   .then(out =>
     console.log('Checkout this JSON! ', out))
   .catch(err => { throw err });
@@ -27,6 +37,7 @@ function auth(credential) {
 
 const ModeEvaluation = () => {
   const [username, setUsername] = React.useState('');
+  const [connected, setConnected] = React.useState(false);
   const [displayAlert, setDisplayAlert] = React.useState(false);
   const [isBUError, setIsBUError] = React.useState(false);
 
@@ -66,56 +77,59 @@ const ModeEvaluation = () => {
     },
   });
 
-  return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Box style={{ height: '70%', width: '100%', borderRadius: 5 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }} width="100%">
-              <Typography color="initial" style={{ fontWeight: 600, fontSize: 32, textAlign: 'center' }}>
-                Login With Your Steam Account
-              </Typography>
-            </Box>
-            <Box sx={{ marginTop: '5%', marginLeft: '5%', width: '90%' }}>
+  if (connected === false) {
+    return (
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Box style={{ height: '70%', width: '100%', borderRadius: 5 }}>
               <Box sx={{ display: 'flex', justifyContent: 'center' }} width="100%">
-                {displayAlert === 2 ? <Alert severity="info">Authenticated but contact ADMINISTRATOR!</Alert> : <></> }
-                {displayAlert === 1 ? <Alert severity="success">Authenticated — SUCCESS!</Alert> : <></> }
-                {displayAlert === 0 ? (
-                  <Alert severity="error">
-                    Failed to authenticate — ERROR!
-                    {(isBUError === true) ? " You don't have right MTN Business Unit to access to this app !" : ''}
-                  </Alert>
-                ) : <></> }
+                <Typography color="initial" style={{ fontWeight: 600, fontSize: 32, textAlign: 'center' }}>
+                  Login With Your Steam Account
+                </Typography>
               </Box>
-              <Typography variant="subtitle1" color="initial">
-                Steam ID *
-              </Typography>
-              <OutlinedInput
-                autoFocus
-                required
-                margin="dense"
-                id="__username"
-                name="username"
-                value={username}
-                fullWidth
-                placeholder="username"
-                style={{ backgroundColor: 'white' }}
-                onChange={event => handleInputChange('username', event.target.value)}
-              />
-              <Button
-                onClick={(e) => { handleSubmit(e); }}
-                style={{
-                  marginTop: 30, width: '100%', outline: 'none', backgroundColor: '#919191', color: 'initial'
-                }}
-              >
-                Sign In
-              </Button>
+              <Box sx={{ marginTop: '5%', marginLeft: '5%', width: '90%' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }} width="100%">
+                  {displayAlert === 2 ? <Alert severity="info">Authenticated but contact ADMINISTRATOR!</Alert> : <></> }
+                  {displayAlert === 1 ? <Alert severity="success">Authenticated — SUCCESS!</Alert> : <></> }
+                  {displayAlert === 0 ? (
+                    <Alert severity="error">
+                      Failed to authenticate — ERROR!
+                      {(isBUError === true) ? " You don't have right MTN Business Unit to access to this app !" : ''}
+                    </Alert>
+                  ) : <></> }
+                </Box>
+                <Typography variant="subtitle1" color="initial">
+                  Steam ID *
+                </Typography>
+                <OutlinedInput
+                  autoFocus
+                  required
+                  margin="dense"
+                  id="__username"
+                  name="username"
+                  value={username}
+                  fullWidth
+                  placeholder="username"
+                  style={{ backgroundColor: 'white' }}
+                  onChange={event => handleInputChange('username', event.target.value)}
+                />
+                <Button
+                  onClick={(e) => { handleSubmit(e); }}
+                  style={{
+                    marginTop: 30, width: '100%', outline: 'none', backgroundColor: '#919191', color: 'initial'
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </ThemeProvider>
-    </Provider>
-  );
+        </ThemeProvider>
+      </Provider>
+    );
+  } else {
+  }
 };
 
 export default ModeEvaluation;
