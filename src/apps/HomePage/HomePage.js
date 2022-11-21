@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import configureStore from "../../store";
 
 import {
   Box,
-  Avatar,
-  createMuiTheme,
   ThemeProvider
 } from "@material-ui/core";
+import { createTheme } from '@material-ui/core/styles'
 import { Provider } from "react-redux";
-import IconButton from "@material-ui/core/IconButton";
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import BackgroundImage from '../../img/backgroundimg.png';
 import PlayButton from '../../img/playbutton.png';
 import PlayButtonHover from '../../img/playbuttonhover.png';
+import configureStore from "../../store";
 
 const store = configureStore();
 
@@ -30,7 +27,7 @@ const HomePage = () => {
     setIsHovering(false);
   };
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     typography: {
       fontFamily: `"Roboto", "Open Sans", "Helvetica", "Arial", sans-serif`,
     },
