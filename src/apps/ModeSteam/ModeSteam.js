@@ -5,37 +5,49 @@ import {
   Typography,
   Button,
   OutlinedInput,
-  ThemeProvider
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  CardActionArea,
+  ThemeProvider,
+  Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
 } from "@material-ui/core";
 import Alert from '@mui/material/Alert';
 import { Provider } from "react-redux";
 import { createTheme } from '@material-ui/core/styles'
 import configureStore from "../../store";
 import BackgroundImage from '../../img/backmode1.png';
+import GenerateButton from '../../img/generatebutton.png';
+import GenerateButtonHover from '../../img/generatebuttonhover.png';
+import { RecommendBySteam } from './RecommendBySteam.js'
 
 const store = configureStore();
 
 function auth(credential) {
-  const url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&steamid='+credential+'&include_appinfo=1&include_played_free_games=1&format=json';
+  //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
+  const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
   const options = {
+    credentials: 'same-origin',
     method: 'GET',
-    withCredentials: true,
-    crossorigin: true,
-    mode: 'no-cors',
-  }
-
-  return fetch(url, {
-    method: 'GET',
-    withCredentials: true,
-    crossorigin: true,
+    headers: {
+      'Content-Type': 'application/json'
+    },
     mode: 'no-cors'
-  }).then(res => res.json())
-  .then(out =>
-    console.log('Checkout this JSON! ', out))
-  .catch(err => { throw err });
+  };
+
+  return fetch(url)
+    .then(response => response.json())
+    .then(responseData => responseData)
+    .catch(error => console.warn(`CANNOT GET API ${error}`));
 }
 
-const ModeEvaluation = () => {
+const ModeSteam = () => {
   const [username, setUsername] = React.useState('');
   const [connected, setConnected] = React.useState(false);
   const [displayAlert, setDisplayAlert] = React.useState(false);
@@ -61,6 +73,19 @@ const ModeEvaluation = () => {
         // if (response.val === 1) { window.location.href = `https://obcc.mtn.bj:8443/:${displayAlert}`; }
       });
     }
+  };
+
+  const [isHovering, setIsHovering] = React.useState(false);
+  const [generateRec, setGenerateRec] = React.useState(false);
+
+  const onGenerate = () => { setGenerateRec(true); };
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
   };
 
   const theme = createTheme({
@@ -129,7 +154,122 @@ const ModeEvaluation = () => {
       </Provider>
     );
   } else {
+    if (!generateRec)
+      return (
+        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+              <Grid container rowSpacing={1}>
+                <Grid item xs={6}>
+                  <Box style={{ height: "100%", width: "95%", overflowY: 'scroll' }}>
+                    <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        {Array.from(Array(6)).map((_, index) => (
+                        <Grid item xs={2} sm={4} md={4} key={index}>
+                          <Card sx={{ maxWidth: 345 }}>
+                            <CardActionArea>
+                              <CardMedia
+                                component="img"
+                                height="140"
+                                image={""}
+                                alt="game img"
+                              />
+                              <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                  Test
+                                </Typography>
+                                <Typography variant="caption" display="block" gutterBottom style={{ fontStyle: 'italic' }} >
+                                Test
+                                </Typography>
+                                <Typography variant="body2" color="initial">
+                                Test
+                                </Typography>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
+              </Grid>
+              <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={onGenerate} >
+                    {!isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "22%" }} /> </div> )}
+                    {isHovering && ( <div> <img src={GenerateButtonHover} alt="generatebutton hover" style={{ height: "22%" }} /> </div> )}
+                  </div>
+              </Grid>
+            </Grid>
+            </Box>
+          </Box>
+        </ThemeProvider>
+      </Provider>
+      );
+    else {
+      return (
+        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+              <Grid container rowSpacing={1}>
+                <Grid item xs={6}>
+                  <Box style={{ height: "100%", width: "95%", overflowY: 'scroll' }}>
+                    <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        {Array.from(Array(6)).map((_, index) => (
+                        <Grid item xs={2} sm={4} md={4} key={index}>
+                          <Card sx={{ maxWidth: 345 }}>
+                            <CardActionArea>
+                              <CardMedia
+                                component="img"
+                                height="140"
+                                image={""}
+                                alt="game img"
+                              />
+                              <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                  Test
+                                </Typography>
+                                <Typography variant="caption" display="block" gutterBottom style={{ fontStyle: 'italic' }} >
+                                Test
+                                </Typography>
+                                <Typography variant="body2" color="initial">
+                                Test
+                                </Typography>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
+              </Grid>
+              <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+                    <Grid item xs={12}>
+                      <Grid container justifyContent="center" spacing={2}>
+                        {[0, 1, 2].map((value) => (
+                          <Grid key={value} item>
+                            <Paper
+                              sx={{
+                                height: 140,
+                                width: 100,
+                                backgroundColor: (theme) =>
+                                  theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                              }}
+                            />
+                          </Grid>
+                        ))}
+                      </Grid>
+                      </Grid>
+                    </Grid>
+              </Grid>
+            </Grid>
+            </Box>
+          </Box>
+        </ThemeProvider>
+      </Provider>
+      );
+    }
   }
 };
 
-export default ModeEvaluation;
+export default ModeSteam;
