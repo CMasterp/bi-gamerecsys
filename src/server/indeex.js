@@ -38,8 +38,8 @@ httpServer.listen(8080, '0.0.0.0', function () {
 });
 
 var httpsConfig = {
-  key: fs.readFileSync('path/to/certificate.key'),
-  cert: fs.readFileSync('path/to/certificate.crt')
+  key: fs.readFileSync('privkey.pem'),
+  cert: fs.readFileSync('fullchain.pem')
 };
 var httpsServer = https.createServer(httpsConfig, app);
 httpsServer.listen(8443, '0.0.0.0', function () {
