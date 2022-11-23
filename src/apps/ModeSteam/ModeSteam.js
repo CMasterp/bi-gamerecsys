@@ -39,6 +39,9 @@ function auth(credentials) {
     },
     body: JSON.stringify(credentials)
   };
+
+  console.log("FETCH");
+
   return fetch(path, options)
     .then(response => response.json())
     .then(responseData => responseData)

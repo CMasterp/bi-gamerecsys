@@ -61,4 +61,15 @@ app.get('/api/getInfosOnUser', (req, res) => {
   getInfos(req.body.credential, result => res.send(result));
 });
 
-app.listen(process.env.PORT || 8081, () => console.log(`Listening on port ${process.env.PORT || 8081}!`));
+const https = require('https');
+const fs = require('fs');
+const https_options = {
+ ca: fs.readFileSync("/etc/letsencrypt/live/bigamerecsys.koreacentral.cloudapp.azure.com/fullchain.pem"),
+ key: fs.readFileSync("/etc/letsencrypt/live/bigamerecsys.koreacentral.cloudapp.azure.com/privkey.pem"),
+ cert: fs.readFileSync("/etc/letsencrypt/live/bigamerecsys.koreacentral.cloudapp.azure.com/fullchain.pem")
+};
+
+https.createServer(https_options, function (req, res) {
+ res.writeHead(200);
+ res.end("Welcome to Node.js HTTPS Server");
+}).listen(8443)
