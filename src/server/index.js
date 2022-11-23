@@ -64,9 +64,9 @@ app.get('/api/getInfosOnUser', (req, res) => {
 const https = require('https');
 const fs = require('fs');
 const https_options = {
- ca: fs.readFileSync("/etc/letsencrypt/live/bigamerecsys.koreacentral.cloudapp.azure.com/fullchain.pem"),
- key: fs.readFileSync("/etc/letsencrypt/live/bigamerecsys.koreacentral.cloudapp.azure.com/privkey.pem"),
- cert: fs.readFileSync("/etc/letsencrypt/live/bigamerecsys.koreacentral.cloudapp.azure.com/fullchain.pem")
+ ca: fs.readFileSync("fullchain.pem"),
+ key: fs.readFileSync("privkey.pem"),
+ cert: fs.readFileSync("fullchain.pem")
 };
 
 https.createServer(https_options, function (req, res) {
