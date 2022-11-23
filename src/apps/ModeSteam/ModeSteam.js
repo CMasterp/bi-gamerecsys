@@ -29,22 +29,20 @@ import { RecommendBySteam } from './RecommendBySteam.js'
 
 const store = configureStore();
 
-function auth(credential) {
-  //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
-  const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
+function auth(credentials) {
+  const path = 'https://bigamerecsys.koreacentral.cloudapp.azure.com:8443/api/getInfosOnUser';
   const options = {
     credentials: 'same-origin',
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    mode: 'no-cors'
+    body: JSON.stringify(credentials)
   };
-
-  return fetch(url)
+  return fetch(path, options)
     .then(response => response.json())
     .then(responseData => responseData)
-    .catch(error => console.warn(`CANNOT GET API ${error}`));
+    .catch(error => console.warn(`CANNOT POST API ${error}`));
 }
 
 const ModeSteam = () => {
