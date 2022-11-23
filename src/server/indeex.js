@@ -1,0 +1,47 @@
+var
+  fs = require('fs'),
+  express = require('express'),
+  app = express(),
+  http = require('http'),
+  https = require('https');
+
+function getInfos(credential) {
+    //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
+    const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
+    const options = {
+        credentials: 'same-origin',
+        method: 'GET',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        mode: 'no-cors'
+    };
+
+    return fetch(url)
+        .then(response => response.json())
+        .then(responseData => responseData)
+        .catch(error => console.warn(`CANNOT GET API ${error}`));
+}
+
+app.get('/', function(req, res) {
+  res.send('Hello World!');
+});
+
+app.get('/api/getInfosOnUser', (req, res) => {
+    console.log('[bigamerecsys@server ~]$ getInfosOnUser');
+    getInfos(req.body.credential, result => res.send(result));
+});
+
+var httpServer = http.createServer(app);
+httpServer.listen(8080, '0.0.0.0', function () {
+  console.log('App listening at http://0.0.0.0:8080');
+});
+
+var httpsConfig = {
+  key: fs.readFileSync('path/to/certificate.key'),
+  cert: fs.readFileSync('path/to/certificate.crt')
+};
+var httpsServer = https.createServer(httpsConfig, app);
+httpsServer.listen(8443, '0.0.0.0', function () {
+  console.log('App listening at https://0.0.0.0:8443');
+});

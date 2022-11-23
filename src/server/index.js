@@ -72,4 +72,4 @@ const https_options = {
 https.createServer(https_options, function (req, res) {
  res.writeHead(200);
  res.end("Welcome to Node.js HTTPS Server");
-}).listen(8443)
+}).listen(8443, () => console.log(`Listening on port ${process.env.PORT || 8443}!`))
