@@ -71,7 +71,7 @@ const ModeSteam = () => {
     event.persist();
     console.log(username);
     if (username) {
-      auth({ username }
+      auth(username
       ).then((response) => {
         console.log(response);
         // setDisplayAlert(response.val);
