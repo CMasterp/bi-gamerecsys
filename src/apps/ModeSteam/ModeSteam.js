@@ -37,7 +37,7 @@ function auth(credentials) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(credentials)
+    body: { credential: credentials }
   };
 
   console.log("FETCH");
