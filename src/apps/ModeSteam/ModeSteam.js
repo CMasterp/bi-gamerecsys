@@ -37,8 +37,7 @@ function auth(credentials) {
     headers: {
       'Content-Type': 'application/json'
     },
-    mode: 'no-cors',
-    body: JSON.stringify({ credential: credentials })
+    body: JSON.stringify(credentials)
   };
 
   console.log("FETCH");
@@ -65,8 +64,7 @@ const ModeSteam = () => {
     event.persist();
     console.log(username);
     if (username) {
-      auth(
-        username
+      auth({ username }
       ).then((response) => {
         console.log(response);
         // setDisplayAlert(response.val);
