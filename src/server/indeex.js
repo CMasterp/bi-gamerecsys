@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 var
   fs = require('fs'),
   express = require('express'),
@@ -37,8 +39,8 @@ app.get('/', function(req, res) {
 
 app.post('/api/getInfosOnUser', (req, res) => {
     console.log('[bigamerecsys@server ~]$ getInfosOnUser');
-    console.log(req);
-    getInfos(req.body.credential, result => res.send(result));
+    console.log(req.query);
+    getInfos(req.query.credentials, result => res.send(result));
 });
 
 var httpServer = http.createServer(app);
