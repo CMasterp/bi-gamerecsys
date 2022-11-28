@@ -6,7 +6,7 @@ import https from "https";
 
 var app = express();
 
-function getInfos(credential) {
+function getInfos(credential, func) {
     //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
     const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
     const options = {
@@ -20,7 +20,7 @@ function getInfos(credential) {
 
     return fetch(url)
         .then(response => response.json())
-        .then(responseData => responseData)
+        .then(responseData => func(responseData))
         .catch(error => console.warn(`CANNOT GET API ${error}`));
 }
 
