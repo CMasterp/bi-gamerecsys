@@ -1,11 +1,10 @@
 import fetch from "node-fetch";
+import fs from "fs";
+import express from "express";
+import http from "http";
+import https from "https";
 
-var
-  fs = require('fs'),
-  express = require('express'),
-  app = express(),
-  http = require('http'),
-  https = require('https');
+var app = express();
 
 function getInfos(credential) {
     //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
