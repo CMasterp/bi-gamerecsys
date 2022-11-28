@@ -31,7 +31,7 @@ import Axios from 'axios';
 const store = configureStore();
 
 function auth(credentials) {
-  const path = 'http://bigamerecsys.koreacentral.cloudapp.azure.com:8080/api/getInfosOnUser';
+  const path = 'https://bigamerecsys.koreacentral.cloudapp.azure.com:8443/api/getInfosOnUser';
   const options = {
     credentials: 'same-origin',
     method: 'POST',
