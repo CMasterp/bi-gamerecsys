@@ -46,8 +46,7 @@ function auth(credentials) {
   return Axios.post(path, null, { params: {
     credentials
   }})
-  .then(response => response.json())
-  .then(responseData => responseData)
+  .then(response => console.log(response))
   .catch(err => console.warn(err));
 
   return fetch(path, options)
