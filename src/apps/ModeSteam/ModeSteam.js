@@ -26,6 +26,7 @@ import BackgroundImage from '../../img/backmode1.png';
 import GenerateButton from '../../img/generatebutton.png';
 import GenerateButtonHover from '../../img/generatebuttonhover.png';
 import { RecommendBySteam } from './RecommendBySteam.js'
+import Axios from 'axios';
 
 const store = configureStore();
 
@@ -41,6 +42,12 @@ function auth(credentials) {
   };
 
   console.log("FETCH");
+
+  return Axios.post(path, null, { params: {
+    credentials
+  }})
+  .then(response => response.status)
+  .catch(err => console.warn(err));
 
   return fetch(path, options)
     .then(response => response.json())
