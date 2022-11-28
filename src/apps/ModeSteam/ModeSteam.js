@@ -170,7 +170,7 @@ const ModeSteam = () => {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_utl + ".jpg"}
+                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_url + ".jpg"}
                                 alt="game img"
                               />
                               <CardContent>
@@ -217,7 +217,7 @@ const ModeSteam = () => {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_utl + ".jpg"}
+                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_url + ".jpg"}
                                 alt="game img"
                               />
                               <CardContent>
