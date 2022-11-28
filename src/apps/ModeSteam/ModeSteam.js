@@ -162,9 +162,9 @@ const ModeSteam = () => {
               <Grid container rowSpacing={1} style={{ overflowY: 'scroll' }}>
                 <Grid item xs={6}>
                   <Box style={{ height: "100%", width: "95%" }}>
-                    <Grid container xs={6} md={12} spacing={2} columns={{ xs: 1, sm: 2, md: 3 }}>
+                    <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {userArray.map((item) => (
-                        <Grid item xs={6} sm={2} md={3} key={item.appid}>
+                        <Grid item xs={2} sm={4} md={4} key={item.appid}>
                           <Card sx={{ maxWidth: 345 }}>
                             <CardActionArea>
                               <CardMedia
@@ -172,6 +172,7 @@ const ModeSteam = () => {
                                 height="140"
                                 image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_url + ".jpg"}
                                 alt="game img"
+                                sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                               />
                               <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
