@@ -33,7 +33,7 @@ app.post('/api/getInfosOnUser', (req, res) => {
 });
 
 var httpServer = http.createServer(app);
-httpServer.listen(8080, '0.0.0.0', function () {
+httpServer.listen(8080, function () {
   console.log('App listening at http://0.0.0.0:8080');
 });
 
@@ -42,6 +42,6 @@ var httpsConfig = {
   cert: fs.readFileSync('fullchain.pem')
 };
 var httpsServer = https.createServer(httpsConfig, app);
-httpsServer.listen(8443, '0.0.0.0', function () {
+httpsServer.listen(8443, function () {
   console.log('App listening at https://0.0.0.0:8443');
 });
