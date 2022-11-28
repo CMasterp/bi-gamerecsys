@@ -73,6 +73,7 @@ const ModeSteam = () => {
     if (username) {
       auth(username
       ).then((response) => {
+        console.log(response);
         if (response.statusText === "OK") {
           setConnected(true);
           console.log(response.data.response);
