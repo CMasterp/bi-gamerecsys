@@ -37,6 +37,7 @@ app.get('/', function(req, res) {
 
 app.post('/api/getInfosOnUser', (req, res) => {
     console.log('[bigamerecsys@server ~]$ getInfosOnUser');
+    console.log(req);
     getInfos(req.body.credential, result => res.send(result));
 });
 

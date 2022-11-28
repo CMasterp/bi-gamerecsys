@@ -38,7 +38,7 @@ function auth(credentials) {
       'Content-Type': 'application/json'
     },
     mode: 'no-cors',
-    body: credentials
+    body: JSON.stringify({ credential: credentials })
   };
 
   console.log("FETCH");
