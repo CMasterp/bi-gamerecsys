@@ -46,7 +46,7 @@ function auth(credentials) {
   return Axios.post(path, null, { params: {
     credentials
   }})
-  .then(response => console.log(response))
+  .then(response => response)
   .catch(err => console.warn(err));
 
   return fetch(path, options)
@@ -57,8 +57,8 @@ function auth(credentials) {
 
 const ModeSteam = () => {
   const [username, setUsername] = React.useState('');
+  const [userArray, setUserArray] = React.useState([]);
   const [connected, setConnected] = React.useState(false);
-  const [displayAlert, setDisplayAlert] = React.useState(false);
   const [isBUError, setIsBUError] = React.useState(false);
 
   const handleInputChange = (name, value) => {
@@ -73,11 +73,12 @@ const ModeSteam = () => {
     if (username) {
       auth(username
       ).then((response) => {
-        console.log(response);
-        // setDisplayAlert(response.val);
-        // if (response.userInformations.businessunit.localeCompare('BadBU') === 0) { setIsBUError(true); }
-        // if (response.val === 2) { console.log('Authenticated but contact ADMINISTRATOR!'); } else if (response.val === 1) { console.log('Authenticated — SUCCESS!'); } else if (response.val === 0) { console.log(`Failed to authenticate — ERROR!${(isBUError === true) ? " You don't have right MTN Business Unit to access to this app !" : ''}`); }
-        // if (response.val === 1) { window.location.href = `https://obcc.mtn.bj:8443/:${displayAlert}`; }
+        if (response.statusText === "OK") {
+          setConnected(true);
+          console.log(response.data.response);
+          setUserArray(response.data.response.games);
+          console.log(userArray);
+        }
       });
     }
   };
@@ -121,16 +122,6 @@ const ModeSteam = () => {
                 </Typography>
               </Box>
               <Box sx={{ marginTop: '5%', marginLeft: '5%', width: '90%' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }} width="100%">
-                  {displayAlert === 2 ? <Alert severity="info">Authenticated but contact ADMINISTRATOR!</Alert> : <></> }
-                  {displayAlert === 1 ? <Alert severity="success">Authenticated — SUCCESS!</Alert> : <></> }
-                  {displayAlert === 0 ? (
-                    <Alert severity="error">
-                      Failed to authenticate — ERROR!
-                      {(isBUError === true) ? " You don't have right MTN Business Unit to access to this app !" : ''}
-                    </Alert>
-                  ) : <></> }
-                </Box>
                 <Typography variant="subtitle1" color="initial">
                   Steam ID *
                 </Typography>
@@ -171,25 +162,22 @@ const ModeSteam = () => {
                 <Grid item xs={6}>
                   <Box style={{ height: "100%", width: "95%", overflowY: 'scroll' }}>
                     <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        {Array.from(Array(6)).map((_, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index}>
+                        {userArray.map((item) => (
+                        <Grid item xs={2} sm={4} md={4} key={item.appid}>
                           <Card sx={{ maxWidth: 345 }}>
                             <CardActionArea>
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={""}
+                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_utl + ".jpg"}
                                 alt="game img"
                               />
                               <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                  Test
-                                </Typography>
-                                <Typography variant="caption" display="block" gutterBottom style={{ fontStyle: 'italic' }} >
-                                Test
+                                {item.name}
                                 </Typography>
                                 <Typography variant="body2" color="initial">
-                                Test
+                                {item.playtime_forever} hours played
                                 </Typography>
                               </CardContent>
                             </CardActionArea>
@@ -221,25 +209,22 @@ const ModeSteam = () => {
                 <Grid item xs={6}>
                   <Box style={{ height: "100%", width: "95%", overflowY: 'scroll' }}>
                     <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        {Array.from(Array(6)).map((_, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index}>
+                    {userArray.map((item) => (
+                        <Grid item xs={2} sm={4} md={4} key={item.appid}>
                           <Card sx={{ maxWidth: 345 }}>
                             <CardActionArea>
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={""}
+                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_utl + ".jpg"}
                                 alt="game img"
                               />
                               <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                  Test
-                                </Typography>
-                                <Typography variant="caption" display="block" gutterBottom style={{ fontStyle: 'italic' }} >
-                                Test
+                                {item.name}
                                 </Typography>
                                 <Typography variant="body2" color="initial">
-                                Test
+                                {item.playtime_forever} hours played
                                 </Typography>
                               </CardContent>
                             </CardActionArea>
