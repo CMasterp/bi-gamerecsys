@@ -37,6 +37,7 @@ function auth(credentials) {
     headers: {
       'Content-Type': 'application/json'
     },
+    mode: 'no-cors',
     body: { credential: credentials }
   };
 
