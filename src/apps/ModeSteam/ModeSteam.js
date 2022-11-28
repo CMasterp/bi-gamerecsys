@@ -86,6 +86,16 @@ const ModeSteam = () => {
 
   const [isHovering, setIsHovering] = React.useState(false);
   const [generateRec, setGenerateRec] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [itemClicked, setItemClicked] = React.useState({});
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onGenerate = () => { setGenerateRec(true); };
 
@@ -159,14 +169,14 @@ const ModeSteam = () => {
         <ThemeProvider theme={theme}>
           <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-              <Grid container rowSpacing={1} style={{ overflowY: 'scroll' }}>
-                <Grid item xs={6}>
+              <Grid container rowSpacing={1}>
+                <Grid item xs={6} style={{ overflowY: 'scroll' }}>
                   <Box style={{ height: "100%", width: "95%" }}>
                     <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {userArray.map((item) => (
                         <Grid item xs={2} sm={4} md={4} key={item.appid}>
                           <Card sx={{ maxWidth: 345 }}>
-                            <CardActionArea>
+                            <CardActionArea onClick={() => { setItemClicked(item); handleClickOpen(); }} >
                               <CardMedia
                                 component="img"
                                 height="140"
@@ -188,6 +198,19 @@ const ModeSteam = () => {
                       ))}
                     </Grid>
                   </Box>
+                  <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                    <DialogTitle id="alert-dialog-title">
+                      {itemClicked.name}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <img src={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + itemClicked.appid + "/" + itemClicked.img_icon_url + ".jpg"} alt="game img" height={150} />
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Close</Button>
+                    </DialogActions>
+                  </Dialog>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={onGenerate} >
