@@ -26,7 +26,7 @@ name_to_index = dict(zip(data['name'], data.index))
 # 게임 제목 Father of the Bride Part II의 인덱스를 리턴
 input = sys.argv[1].lower()
 input = input.replace(' ','')
-input = input.replace(pat=r'[^\w]',repl=r'',regex=True)
+# input = input.replace(pat=r'[^\w]',repl=r'',regex=True)
 # print('Your Selection is : ' + input.upper())
 def get_recommendations(name, cosine_sim=cosine_sim):
     # 선택한 게임의 타이틀로부터 해당 게임의 인덱스를 받아온다.
