@@ -12,7 +12,6 @@ data = data.head(20000)
 data = data.fillna(' ')
 data['name']=data['name'].str.lower()
 data['name']=data['name'].str.replace(pat=r'[^\w]',repl=r' ',regex=True)
-input = input.replace(pat=r'[^\w]',repl=r'',regex=True)
 data.shape
 count_vector = CountVectorizer(ngram_range=(1,3))
 c_vector_tag = count_vector.fit_transform(data['popular_tags'])
@@ -27,6 +26,7 @@ name_to_index = dict(zip(data['name'], data.index))
 # 게임 제목 Father of the Bride Part II의 인덱스를 리턴
 input = sys.argv[1].lower()
 input = input.replace(' ','')
+input = input.replace(pat=r'[^\w]',repl=r'',regex=True)
 # print('Your Selection is : ' + input.upper())
 def get_recommendations(name, cosine_sim=cosine_sim):
     # 선택한 게임의 타이틀로부터 해당 게임의 인덱스를 받아온다.
