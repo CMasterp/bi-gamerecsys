@@ -9,8 +9,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 df = pd.read_csv('steam_games.csv')
 data = df[['popular_tags','name', 'url']]
 data = data.head(20000)
+data = data.fillna(' ')
 data.shape
-data=data.fillna()
 count_vector = CountVectorizer(ngram_range=(1,3))
 c_vector_tag = count_vector.fit_transform(data['popular_tags'])
 c_vector_tag.shape
