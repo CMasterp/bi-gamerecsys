@@ -214,7 +214,7 @@ const ModeSteam = () => {
               </Grid>
               <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={onGenerate} >
-                    {!isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "22%" }} /> </div> )}
+                    {isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "22%" }} /> </div> )}
                     {isHovering && ( <div> <img src={GenerateButtonHover} alt="generatebutton hover" style={{ height: "22%" }} /> </div> )}
                   </div>
               </Grid>

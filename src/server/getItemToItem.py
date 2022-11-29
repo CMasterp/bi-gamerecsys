@@ -7,14 +7,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 df = pd.read_csv('steam_games.csv')
-data = df[['genre','rate','name', 'url']]
+data = df[['popular_tags','name', 'url']]
 data = data.head(20000)
 data.shape
 count_vector = CountVectorizer(ngram_range=(1,3))
-c_vector_genre = count_vector.fit_transform(data['genre'])
-c_vector_genre.shape
+c_vector_tag = count_vector.fit_transform(data['popular_tags'])
+c_vector_tag.shape
 tfidf = TfidfVectorizer(stop_words='english')
-tfidf_matrix = tfidf.fit_transform(data['genre'])
+tfidf_matrix = tfidf.fit_transform(data['popular_tags'])
 #print('TF-IDF(shape) :',tfidf_matrix.shape)
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 #print('cosine_sim.shape Result :',cosine_sim.shape)
