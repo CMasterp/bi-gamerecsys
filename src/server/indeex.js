@@ -3,20 +3,13 @@ import fs from "fs";
 import express from "express";
 import http from "http";
 import https from "https";
+import { spawn } from "child_process";
 
 var app = express();
 
 function getInfos(credential, func) {
     //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
     const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
-    const options = {
-        credentials: 'same-origin',
-        method: 'GET',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        mode: 'no-cors'
-    };
 
     return fetch(url)
         .then(response => response.json())
@@ -41,6 +34,21 @@ app.post('/api/getInfosOnUser', (req, res) => {
     console.log(req.query);
     getInfos(req.query.credentials, result => res.send(result));
 });
+
+app.post('/api/getItemRecommended', (req, res) => {
+  console.log('[bigamerecsys@server ~]$ getItemRecommended');
+  console.log(req.query);
+  var dataToSend;
+  const python = spawn('python3', ['getItemToItem.py', req.query.item]);
+  python.stdout.on('data', function (data) {
+   console.log('Pipe data from python script ...');
+   dataToSend = data.toString();
+  });
+  python.on('close', (code) => {
+  console.log(`child process close all stdio with code ${code}`);
+  res.send(dataToSend);
+  });
+})
 
 var httpServer = http.createServer(app);
 httpServer.listen(8080, function () {

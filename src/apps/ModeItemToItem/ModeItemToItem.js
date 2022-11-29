@@ -45,7 +45,7 @@ const ModeItemToItem = () => {
   const [itemRecommended, setItemRecommended] = React.useState({});
 
   const handleClickOpen = () => {
-    getItemRecommended(itemClicked).then((response) => {
+    getItemRecommended(itemClicked.name).then((response) => {
         console.log(response);
         if (response.statusText === "OK") {
           setItemRecommended(response.data.response)
