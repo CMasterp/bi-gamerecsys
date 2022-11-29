@@ -22,15 +22,36 @@ import { createTheme } from '@material-ui/core/styles'
 import BackgroundImage from '../../img/backmode2.png';
 import configureStore from "../../store";
 import { steamGames } from "./ArrayOfGames";
+import Axios from 'axios';
 
 const store = configureStore();
+
+function getItemRecommended(item) {
+  const path = 'https://bigamerecsys.koreacentral.cloudapp.azure.com:8443/api/getItemRecommended';
+
+  console.log("FETCH");
+
+  return Axios.post(path, null, { params: {
+    item
+  }})
+  .then(response => response)
+  .catch(err => console.warn(err));
+}
 
 const ModeItemToItem = () => {
 
   const [open, setOpen] = React.useState(false);
   const [itemClicked, setItemClicked] = React.useState({});
+  const [itemRecommended, setItemRecommended] = React.useState({});
 
   const handleClickOpen = () => {
+    getItemRecommended(itemClicked).then((response) => {
+        console.log(response);
+        if (response.statusText === "OK") {
+          setItemRecommended(response.data.response)
+          console.log();
+        }
+      });
     setOpen(true);
   };
 

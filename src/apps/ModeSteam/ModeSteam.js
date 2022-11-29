@@ -169,8 +169,8 @@ const ModeSteam = () => {
         <ThemeProvider theme={theme}>
           <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-              <Grid container rowSpacing={1} style={{ height: '85vh', overflowY: 'hidden' }}>
-                <Grid item xs={6} style={{ display: 'flex', overflowY: 'scroll' }}>
+              <Grid container rowSpacing={1} style={{ height: '85vh', overflowY: 'scroll' }}>
+                <Grid item xs={6}>
                   <Box style={{ height: "100%", width: "95%" }}>
                     <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {userArray.map((item) => (
