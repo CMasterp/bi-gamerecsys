@@ -11,10 +11,10 @@ data = df[['popular_tags','name', 'url']]
 data = data.head(20000)
 data.shape
 count_vector = CountVectorizer(ngram_range=(1,3))
-c_vector_tag = count_vector.fit_transform(data['popular_tags'])
+c_vector_tag = count_vector.fit_transform(data['popular_tags'].values.astype('U'))
 c_vector_tag.shape
 tfidf = TfidfVectorizer(stop_words='english')
-tfidf_matrix = tfidf.fit_transform(data['popular_tags'])
+tfidf_matrix = tfidf.fit_transform(data['popular_tags'].values.astype('U'))
 #print('TF-IDF(shape) :',tfidf_matrix.shape)
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 #print('cosine_sim.shape Result :',cosine_sim.shape)
