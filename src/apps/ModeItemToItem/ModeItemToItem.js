@@ -41,7 +41,8 @@ function getItemRecommended(item) {
 function getGameImg(item) {
   const array1 = item.split("https://store.steampowered.com/app/");
 
-  return "https://cdn.cloudflare.steamstatic.com/steam/apps/" + array1[1].split("/")[0] + "/header.jpg";
+  console.log(array1);
+  return "https://cdn.cloudflare.steamstatic.com/steam/apps/" + (array1[1]).split("/")[0] + "/header.jpg";
 }
 
 const ModeItemToItem = () => {
