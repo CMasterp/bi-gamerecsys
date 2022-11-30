@@ -48,7 +48,7 @@ const ModeItemToItem = () => {
 
   const [open, setOpen] = React.useState(false);
   const [itemClicked, setItemClicked] = React.useState({});
-  const [itemRecommended, setItemRecommended] = React.useState({});
+  const [itemRecommended, setItemRecommended] = React.useState([]);
 
   const handleClickOpen = (item) => {
     setItemClicked(item);
