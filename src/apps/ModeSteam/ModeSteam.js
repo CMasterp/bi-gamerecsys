@@ -180,7 +180,7 @@ const ModeSteam = () => {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_url + ".jpg"}
+                                image={"https://cdn.cloudflare.steamstatic.com/steam/apps/" + item.appid + "/header.jpg"}
                                 alt="game img"
                                 sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                               />
@@ -204,7 +204,7 @@ const ModeSteam = () => {
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-description">
-                        <img src={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + itemClicked.appid + "/" + itemClicked.img_icon_url + ".jpg"} alt="game img" height={150} />
+                        <img src={"https://cdn.cloudflare.steamstatic.com/steam/apps/" + itemClicked.appid + "/header.jpg"} alt="game img" height={150} />
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions>
