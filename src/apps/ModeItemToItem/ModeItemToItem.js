@@ -50,8 +50,9 @@ const ModeItemToItem = () => {
     getItemRecommended(item.name).then((response) => {
         console.log(response);
         if (response.statusText === "OK") {
-          setItemRecommended(response.data.response)
-          console.log();
+          const result = response.data.split(/\r?\n/).filter(element => element);
+          console.log(result);
+          setItemRecommended(result)
           setOpen(true);
         }
       });
