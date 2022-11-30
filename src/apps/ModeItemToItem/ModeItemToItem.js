@@ -58,6 +58,7 @@ const ModeItemToItem = () => {
         console.log(response);
         if (response.statusText === "OK") {
           const result = response.data.split(/\r?\n/).filter(element => element);
+          result.pop();
           console.log(result);
           setItemRecommended(result)
           setOpen(true);
