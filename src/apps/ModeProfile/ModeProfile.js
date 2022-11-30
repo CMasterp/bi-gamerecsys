@@ -132,7 +132,7 @@ const ModeProfile = () => {
                       label="New Game"
                     >
                       {steamGames.map((item) => (
-                        <MenuItem key={item.name} value={item.name}>{item.name}</MenuItem>
+                        <MenuItem key={item.name} value={item}>{item.name}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>
