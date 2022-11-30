@@ -38,6 +38,12 @@ function getItemRecommended(item) {
   .catch(err => console.warn(err));
 }
 
+function getGameImg(item) {
+  const array1 = item.split("https://store.steampowered.com/app/");
+
+  return "https://cdn.cloudflare.steamstatic.com/steam/apps/" + array1[1].split("/")[0] + "/header.jpg";
+}
+
 const ModeItemToItem = () => {
 
   const [open, setOpen] = React.useState(false);
@@ -115,8 +121,15 @@ const ModeItemToItem = () => {
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    If you like the game {itemClicked.name}, our algorithm recommends you to try the game ___ . You may well enjoy it.
+                    If you like the game {itemClicked.name}, our algorithm recommends you to try these games by order. You may well enjoy it.
                   </DialogContentText>
+                  <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  {itemRecommended.map((item) => (
+                    <Grid item xs={2} sm={4} md={4} key={item}>
+                      <img src={getGameImg(item)} alt={item} height={50} width={50} />
+                    </Grid>
+                  ))}
+                </Grid>
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>Close</Button>
