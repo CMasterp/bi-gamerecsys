@@ -44,9 +44,10 @@ const ModeItemToItem = () => {
   const [itemClicked, setItemClicked] = React.useState({});
   const [itemRecommended, setItemRecommended] = React.useState({});
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (item) => {
+    setItemClicked(item);
     console.log(itemClicked.name);
-    getItemRecommended(itemClicked.name).then((response) => {
+    getItemRecommended(item.name).then((response) => {
         console.log(response);
         if (response.statusText === "OK") {
           setItemRecommended(response.data.response)
@@ -84,7 +85,7 @@ const ModeItemToItem = () => {
                 {steamGames.map((item) => (
                   <Grid item xs={2} sm={4} md={4} key={item.name}>
                     <Card sx={{ maxWidth: 345 }}>
-                      <CardActionArea onClick={() => { setItemClicked(item); handleClickOpen(); }} >
+                      <CardActionArea onClick={() => { handleClickOpen(item); }} >
                         <CardMedia
                           component="img"
                           height="140"

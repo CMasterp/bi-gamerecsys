@@ -189,7 +189,7 @@ const ModeSteam = () => {
                                 {item.name}
                                 </Typography>
                                 <Typography variant="body2" color="initial">
-                                {item.playtime_forever} hours played
+                                {item.playtime_forever} min played
                                 </Typography>
                               </CardContent>
                             </CardActionArea>
