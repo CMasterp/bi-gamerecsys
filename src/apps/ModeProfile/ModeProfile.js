@@ -34,7 +34,7 @@ const store = configureStore();
 const ModeProfile = () => {
 
   const [open, setOpen] = React.useState(false);
-  const [nbrHours, setNbrHours] = React.useState(0);
+  const [nbrMins, setNbrMins] = React.useState(0);
   const [newItem, setNewItem] = React.useState({});
   const [itemClicked, setItemClicked] = React.useState({});
   const [userGames, setUserGames] = React.useState([]);
@@ -44,15 +44,15 @@ const ModeProfile = () => {
   };
 
   const handleAdd = (newItem) => {
-    setUserGames([{nbrHours: nbrHours , gameInfos: newItem }, ...userGames])
-    setNbrHours(0);
+    setUserGames([{nbrMins: nbrMins , gameInfos: newItem }, ...userGames])
+    setNbrMins(0);
     setNewItem({});
     setOpen(false);
     console.log(userGames);
   };
 
-  const handleNbrHoursChange = (event) => {
-    setNbrHours(event.target.value);
+  const handleNbrMinsChange = (event) => {
+    setNbrMins(event.target.value);
   };
 
   const handleClickAddCard = () => {
@@ -97,7 +97,7 @@ const ModeProfile = () => {
                         />
                         <CardContent>
                           <Typography gutterBottom variant="h5" component="div">
-                            {item.gameInfos.name}
+                            {item.gameInfos.name} || {item.nbrMins} mins played
                           </Typography>
                           <Typography variant="caption" display="block" gutterBottom style={{ fontStyle: 'italic' }} >
                             {item.gameInfos.genre}
@@ -122,7 +122,7 @@ const ModeProfile = () => {
                 </DialogTitle>
                 <DialogContent>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <TextField id="standard-basic" label="Number of Hours" variant="standard" value={nbrHours} onChange={handleNbrHoursChange}/>
+                    <TextField id="standard-basic" label="Number of Minutes Played" variant="standard" value={nbrMins} onChange={handleNbrMinsChange}/>
                     <InputLabel id="demo-simple-select-standard-label"></InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
