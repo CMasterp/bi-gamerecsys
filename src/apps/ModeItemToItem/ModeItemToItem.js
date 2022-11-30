@@ -53,7 +53,7 @@ const ModeItemToItem = () => {
 
   const handleClickOpen = (item) => {
     setItemClicked(item);
-    console.log(itemClicked.name);
+    console.log(item.name);
     getItemRecommended(item.name).then((response) => {
         console.log(response);
         if (response.statusText === "OK") {
@@ -125,10 +125,10 @@ const ModeItemToItem = () => {
                   <DialogContentText id="alert-dialog-description">
                     If you like the game {itemClicked.name}, our algorithm recommends you to try these games by order. You may well enjoy it.
                   </DialogContentText>
-                  <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid container xs={6} md={12} spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
                   {itemRecommended.map((item) => (
                     <Grid item xs={2} sm={4} md={4} key={item}>
-                      <img src={getGameImg(item)} alt={item} height={50} width={50} />
+                      <img src={getGameImg(item)} alt={item} height={100} />
                     </Grid>
                   ))}
                 </Grid>
