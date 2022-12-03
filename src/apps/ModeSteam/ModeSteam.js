@@ -289,7 +289,7 @@ const ModeSteam = () => {
                   </Dialog>
               </Grid>
             </Box>
-            <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "0vh", height: "12vh", width: "100%" }}>
+            <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
               <Grid container xs={6} md={12} spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
                   {itemRecommended.map((item) => (
                     <Grid item xs={2} sm={4} md={4} key={item}>
