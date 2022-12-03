@@ -1,9 +1,9 @@
-import fetch from "node-fetch";
-import fs from "fs";
-import express from "express";
-import http from "http";
-import https from "https";
-import { spawn } from "child_process";
+const fetch = require("node-fetch");
+const fs = require("fs");
+const express = require("express");
+const http = require("http");
+const https = require("https");
+const { spawn } = require("child_process");
 
 var app = express();
 
