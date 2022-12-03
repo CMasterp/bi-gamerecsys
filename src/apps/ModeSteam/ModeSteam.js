@@ -214,7 +214,7 @@ const ModeSteam = () => {
             </Box>
             <Box display="flex" justifyContent="flex-end" style={{ marginTop: "0vh", height: "12vh", width: "100%" }}>
               <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={onGenerate} >
-                {isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "80%" }} /> </div> )}
+                {!isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "80%" }} /> </div> )}
                 {isHovering && ( <div> <img src={GenerateButtonHover} alt="generatebutton hover" style={{ height: "80%" }} /> </div> )}
               </div>
             </Box>
