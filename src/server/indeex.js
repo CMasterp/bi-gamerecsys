@@ -30,13 +30,13 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/getInfosOnUser', (req, res) => {
-    console.log('[bigamerecsys@server ~]$ getInfosOnUser');
+    console.log('[gamerecsys@server ~]$ getInfosOnUser');
     console.log(req.query);
     getInfos(req.query.credentials, result => res.send(result));
 });
 
 app.post('/api/getItemRecommended', (req, res) => {
-  console.log('[bigamerecsys@server ~]$ getItemRecommended');
+  console.log('[gamerecsys@server ~]$ getItemRecommended');
   console.log(req.query);
   var dataToSend;
   const python = spawn('python3', ['getItemToItem.py', req.query.item]);

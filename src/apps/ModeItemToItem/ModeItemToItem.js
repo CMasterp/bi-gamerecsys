@@ -27,7 +27,7 @@ import Axios from 'axios';
 const store = configureStore();
 
 function getItemRecommended(item) {
-  const path = 'https://bigamerecsys.koreacentral.cloudapp.azure.com:8443/api/getItemRecommended';
+  const path = 'https://gamerecsys.koreacentral.cloudapp.azure.com:8443/api/getItemRecommended';
 
   console.log("FETCH");
 

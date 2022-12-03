@@ -57,7 +57,7 @@ function getInfos(credential) {
 }
 
 app.get('/api/getInfosOnUser', (req, res) => {
-  console.log('[bigamerecsys@server ~]$ getInfosOnUser');
+  console.log('[gamerecsys@server ~]$ getInfosOnUser');
   getInfos(req.body.credential, result => res.send(result));
 });
 
