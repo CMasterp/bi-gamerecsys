@@ -85,6 +85,11 @@ const ModeProfile = () => {
           <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
             <Box style={{ height: "100%", width: "95%", overflowY: 'scroll' }}>
               <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Grid item xs={2} sm={4} md={4} key={"addcard"}>
+                  <Button color="secondary" variant="outlined" startIcon={<AddIcon />} onClick={handleClickAddCard}>
+                    Add a Game
+                  </Button>
+                </Grid>
                 {userGames.map((item) => (
                   <Grid item xs={2} sm={4} md={4} key={item.gameInfos.name}>
                     <Card sx={{ maxWidth: 345 }}>
@@ -110,11 +115,6 @@ const ModeProfile = () => {
                     </Card>
                   </Grid>
                 ))}
-                <Grid item xs={2} sm={4} md={4} key={"addcard"}>
-                  <Button color="secondary" variant="outlined" startIcon={<AddIcon />} onClick={handleClickAddCard}>
-                    Add a Game
-                  </Button>
-                </Grid>
               </Grid>
               <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
                 <DialogTitle id="alert-dialog-title">
