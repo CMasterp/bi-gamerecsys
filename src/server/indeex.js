@@ -35,6 +35,21 @@ app.post('/api/getInfosOnUser', (req, res) => {
     getInfos(req.query.credentials, result => res.send(result));
 });
 
+app.post('/api/getResultSteamMode', (req, res) => {
+  console.log('[gamerecsys@server ~]$ getResultSteamMode');
+  console.log(req.query);
+  var dataToSend;
+  const python = spawn('python3', ['collaborativeFilterRecommend.py', req.query.steamID]);
+  python.stdout.on('data', function (data) {
+   console.log('Pipe data from python script ...');
+   dataToSend = data.toString();
+  });
+  python.on('close', (code) => {
+  console.log(`child process close all stdio with code ${code}`);
+  res.send(dataToSend);
+  });
+})
+
 app.post('/api/getItemRecommended', (req, res) => {
   console.log('[gamerecsys@server ~]$ getItemRecommended');
   console.log(req.query);

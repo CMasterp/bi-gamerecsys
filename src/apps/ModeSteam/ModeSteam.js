@@ -32,14 +32,6 @@ const store = configureStore();
 
 function auth(credentials) {
   const path = 'https://gamerecsys.koreacentral.cloudapp.azure.com:8443/api/getInfosOnUser';
-  const options = {
-    credentials: 'same-origin',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  };
 
   console.log("FETCH");
 
@@ -48,18 +40,33 @@ function auth(credentials) {
   }})
   .then(response => response)
   .catch(err => console.warn(err));
+}
 
-  return fetch(path, options)
-    .then(response => response.json())
-    .then(responseData => responseData)
-    .catch(error => console.warn(`CANNOT POST API ${error}`));
+function generateRecommendations(steamID) {
+  const path = 'https://gamerecsys.koreacentral.cloudapp.azure.com:8443/api/getResultSteamMode';
+
+  console.log("FETCH");
+
+  return Axios.post(path, null, { params: {
+    steamID
+  }})
+  .then(response => response)
+  .catch(err => console.warn(err));
+
+}
+
+function getGameImg(item) {
+  const array1 = item.split("https://store.steampowered.com/app/");
+
+  console.log(array1);
+  return "https://cdn.cloudflare.steamstatic.com/steam/apps/" + (array1[1]).split("/")[0] + "/header.jpg";
 }
 
 const ModeSteam = () => {
   const [username, setUsername] = React.useState('');
   const [userArray, setUserArray] = React.useState([]);
   const [connected, setConnected] = React.useState(false);
-  const [isBUError, setIsBUError] = React.useState(false);
+  const [itemRecommended, setItemRecommended] = React.useState([]);
 
   const handleInputChange = (name, value) => {
     console.log(value);
@@ -97,7 +104,17 @@ const ModeSteam = () => {
     setOpen(false);
   };
 
-  const onGenerate = () => { setGenerateRec(true); };
+  const onGenerate = () => {
+    setGenerateRec(true);
+    generateRecommendations(username).then((response) => {
+      console.log(response);
+      if (response.statusText === "OK") {
+        console.log(response.data);
+        setItemRecommended(response.data);
+        console.log(itemRecommended);
+      }
+    });
+  };
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -212,7 +229,7 @@ const ModeSteam = () => {
                   </Dialog>
               </Grid>
             </Box>
-            <Box display="flex" justifyContent="flex-end" style={{ marginTop: "0vh", height: "12vh", width: "100%" }}>
+            <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "0vh", height: "12vh", width: "100%" }}>
               <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={onGenerate} >
                 {!isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "80%" }} /> </div> )}
                 {isHovering && ( <div> <img src={GenerateButtonHover} alt="generatebutton hover" style={{ height: "80%" }} /> </div> )}
@@ -228,26 +245,26 @@ const ModeSteam = () => {
         <ThemeProvider theme={theme}>
           <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-              <Grid container rowSpacing={1}>
-                <Grid item xs={6}>
-                  <Box style={{ height: "100%", width: "95%", overflowY: 'scroll' }}>
+              <Grid container rowSpacing={1} style={{ height: '85vh', overflowY: 'scroll' }}>
+                  <Box style={{ height: "100%", width: "95%" }}>
                     <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {userArray.map((item) => (
+                        {userArray.map((item) => (
                         <Grid item xs={2} sm={4} md={4} key={item.appid}>
                           <Card sx={{ maxWidth: 345 }}>
-                            <CardActionArea>
+                            <CardActionArea onClick={() => { setItemClicked(item); handleClickOpen(); }} >
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/" + item.appid + "/" + item.img_icon_url + ".jpg"}
+                                image={"https://cdn.cloudflare.steamstatic.com/steam/apps/" + item.appid + "/header.jpg"}
                                 alt="game img"
+                                sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                               />
                               <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
                                 {item.name}
                                 </Typography>
                                 <Typography variant="body2" color="initial">
-                                {item.playtime_forever} hours played
+                                {item.playtime_forever} min played
                                 </Typography>
                               </CardContent>
                             </CardActionArea>
@@ -256,32 +273,34 @@ const ModeSteam = () => {
                       ))}
                     </Grid>
                   </Box>
+                  <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                    <DialogTitle id="alert-dialog-title">
+                      {itemClicked.name}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <img src={"https://cdn.cloudflare.steamstatic.com/steam/apps/" + itemClicked.appid + "/header.jpg"} alt="game img" height={150} />
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Close</Button>
+                    </DialogActions>
+                  </Dialog>
               </Grid>
-              <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container justifyContent="center" spacing={2}>
-                        {[0, 1, 2].map((value) => (
-                          <Grid key={value} item>
-                            <Paper
-                              sx={{
-                                height: 140,
-                                width: 100,
-                                backgroundColor: (theme) =>
-                                  theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                              }}
-                            />
-                          </Grid>
-                        ))}
-                      </Grid>
-                      </Grid>
+            </Box>
+            <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "0vh", height: "12vh", width: "100%" }}>
+              <Grid container xs={6} md={12} spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  {itemRecommended.map((item) => (
+                    <Grid item xs={2} sm={4} md={4} key={item}>
+                      <img src={getGameImg(item)} alt={item} height={100} />
                     </Grid>
+                  ))}
               </Grid>
-            </Grid>
             </Box>
           </Box>
         </ThemeProvider>
       </Provider>
+
       );
     }
   }
