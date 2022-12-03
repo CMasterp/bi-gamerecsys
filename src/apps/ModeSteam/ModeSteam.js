@@ -58,7 +58,7 @@ function auth(credentials) {
 const ModeSteam = () => {
   const [username, setUsername] = React.useState('');
   const [userArray, setUserArray] = React.useState([]);
-  const [connected, setConnected] = React.useState(true);
+  const [connected, setConnected] = React.useState(false);
   const [isBUError, setIsBUError] = React.useState(false);
 
   const handleInputChange = (name, value) => {
@@ -168,7 +168,7 @@ const ModeSteam = () => {
         <Provider store={store}>
         <ThemeProvider theme={theme}>
           <Box style={{ backgroundImage: `url(${BackgroundImage})`, backgroundSize: "cover", height: "100vh", color: "#f5f5f5", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <Box style={{ backgroundColor: "blue", marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+            <Box style={{ marginTop: "15vh", height: "85vh", width: "100%", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
               <Grid container rowSpacing={1} style={{ height: '85vh', overflowY: 'scroll' }}>
                   <Box style={{ height: "100%", width: "95%" }}>
                     <Grid container xs={6} md={12} spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -212,7 +212,7 @@ const ModeSteam = () => {
                   </Dialog>
               </Grid>
             </Box>
-            <Box display="flex" justifyContent="flex-end" style={{ backgroundColor: "red", marginTop: "0vh", height: "12vh", width: "100%" }}>
+            <Box display="flex" justifyContent="flex-end" style={{ marginTop: "0vh", height: "12vh", width: "100%" }}>
               <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={onGenerate} >
                 {isHovering && ( <div> <img src={GenerateButton} alt="generatebutton" style={{ height: "80%" }} /> </div> )}
                 {isHovering && ( <div> <img src={GenerateButtonHover} alt="generatebutton hover" style={{ height: "80%" }} /> </div> )}
