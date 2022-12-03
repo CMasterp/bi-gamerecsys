@@ -19,7 +19,7 @@ SteamURL=SteamURL.set_index(keys='name')
 SteamURL=SteamURL.loc[:,['url']]
 
 steamid = sys.argv[1]
-url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&steamid='+steamid+'&include_appinfo=1&include_played_free_games=1&format=json'
+url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=C43A6789C9607462F9F6BC3601E50B00&steamid='+steamid+'&include_appinfo=1&include_played_free_games=1&format=json'
 
 result_obj = urllib.request.urlopen(url)
 

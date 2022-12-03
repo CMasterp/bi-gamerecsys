@@ -9,7 +9,7 @@ var app = express();
 
 function getInfos(credential, func) {
     //const url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+credential+'&steamid=76561197960434622&format=json';
-    const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=1EB4D210F733D638D3F0BD06F3020ECA&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
+    const url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=C43A6789C9607462F9F6BC3601E50B00&include_played_free_games=1&include_appinfo=1&format=json&steamid="+credential
 
     return fetch(url)
         .then(response => response.json())
