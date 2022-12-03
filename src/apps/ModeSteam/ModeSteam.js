@@ -109,9 +109,10 @@ const ModeSteam = () => {
     generateRecommendations(username).then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
-        console.log(response.data);
-        setItemRecommended(response.data);
-        console.log(itemRecommended);
+        const result = response.data.split(/\r?\n/).filter(element => element);
+        result.shift();
+        console.log(result);
+        setItemRecommended(result);
       }
     });
   };
