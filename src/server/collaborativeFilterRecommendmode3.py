@@ -24,9 +24,16 @@ steamid = 111111
 #result_obj = urllib.request.urlopen(url)
 
 #result_json = result_obj.read()
-print(sys.argv[1])
+#result_dict = json.loads(sys.argv[1])
+result_dict = sys.argv[1].split('},{')
+i = 0
+for tmp in result_dict:
+    if (i == 0):
+        result_dict[i] = result_dict[i] + '}'
+    else:
+        result_dict[i] = '{' + result_dict[i] + '}'
+print(result_dict)
 sys.exit()
-result_dict = json.loads(sys.argv[1])
 # 빈 리스트를 만들자
 appid_list = []
 title_list = []
