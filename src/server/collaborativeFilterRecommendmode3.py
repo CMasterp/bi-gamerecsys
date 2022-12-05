@@ -38,7 +38,7 @@ playtime_list = []
 for tmp in result_dictt:
     appid_list.append(tmp['appid'])
     title_list.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",(tmp['name'].lower()).replace(' ','')))
-    playtime_list.append(round(tmp['nbrMins']/60,1))
+    playtime_list.append(round(int(tmp['nbrMins'])/60,1))
 # 프린트문으로 list가 잘만들어졌는지 확인해보고
 #print(title_list)
 #print(playtime_list)
