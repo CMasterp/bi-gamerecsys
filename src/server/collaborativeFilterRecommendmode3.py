@@ -27,6 +27,7 @@ steamid = 111111
 #result_json = result_obj.read()
 
 result_dict = json.loads(sys.argv[1])
+print(result_dict)
 
 # result_dict = sys.argv[1]
 # result_dictt = []
