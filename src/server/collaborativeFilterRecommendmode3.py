@@ -19,30 +19,26 @@ SteamURL=SteamURL.set_index(keys='name')
 SteamURL=SteamURL.loc[:,['url']]
 
 steamid = 111111
+
 #url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=C43A6789C9607462F9F6BC3601E50B00&steamid='+steamid+'&include_appinfo=1&include_played_free_games=1&format=json'
 
 #result_obj = urllib.request.urlopen(url)
 
-result_json = sys.argv[1].read()
-print(result_json)
-result_dict = json.loads(result_json)
-print(result_dict)
-# result_dict = sys.argv[1].split('},{')
-# result_dictt = []
-# i = 0
-# for tmp in result_dict:
-#     if (i == 0):
-#         result_dict[i] = result_dict[i] + '}'
-#     else:
-#         result_dict[i] = '{' + result_dict[i] + '}'
-#     i = i + 1
-# print(result_dict)
-# i = 0
+#result_json = result_obj.read()
 
-# for tmp in result_dict:
-#     result_dictt.append(json.loads(result_dict[i]))
-#     i = i + 1
-# print(result_dictt)
+result_dict = sys.argv[1]
+result_dictt = []
+i = 0
+for tmp in result_dict:
+    result_dict[i] = result_dict[i].replace("\'", '\\"')
+    i = i + 1
+print(result_dict)
+i = 0
+
+for tmp in result_dict:
+    result_dictt.append(json.loads(result_dict[i]))
+    i = i + 1
+print(result_dictt)
 sys.exit()
 # 빈 리스트를 만들자
 appid_list = []
