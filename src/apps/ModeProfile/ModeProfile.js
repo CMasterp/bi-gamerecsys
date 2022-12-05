@@ -61,6 +61,7 @@ const ModeProfile = () => {
   const [newItem, setNewItem] = React.useState({});
   const [itemClicked, setItemClicked] = React.useState({});
   const [userGames, setUserGames] = React.useState([]);
+  const [userrGames, setUserrGames] = React.useState([]);
 
   const [isHovering, setIsHovering] = React.useState(false);
   const [generateRec, setGenerateRec] = React.useState(false);
@@ -68,7 +69,7 @@ const ModeProfile = () => {
 
   const onGenerate = () => {
     setGenerateRec(true);
-    generateRecommendations(userGames).then((response) => {
+    generateRecommendations(userrGames).then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
         const result = response.data.split(/\r?\n/).filter(element => element);
@@ -94,11 +95,12 @@ const ModeProfile = () => {
   const handleAdd = (newItem) => {
     const array1 = newItem.url.split("https://cdn.cloudflare.steamstatic.com/steam/apps/");
 
-    setUserGames([{nbrMins: nbrMins , name: newItem.name, appid: (array1[0]).split("/")[0] , gameInfos: newItem }, ...userGames])
+    setUserGames([{nbrMins: nbrMins , gameInfos: newItem }, ...userGames])
+    setUserrGames([{nbrMins: nbrMins , name: newItem.name, appid: (array1[1]).split("/")[0] }, ...userrGames])
     setNbrMins(0);
     setNewItem({});
     setOpen(false);
-    console.log(userGames);
+    console.log(userrGames);
   };
 
   const handleNbrMinsChange = (event) => {

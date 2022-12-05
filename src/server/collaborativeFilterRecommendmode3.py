@@ -26,19 +26,21 @@ steamid = 111111
 
 #result_json = result_obj.read()
 
-result_dict = sys.argv[1]
-result_dictt = []
-i = 0
-for tmp in result_dict:
-    result_dict[i] = result_dict[i].replace("\'", '\\"')
-    i = i + 1
-print(result_dict)
-i = 0
+result_dict = json.loads(sys.argv[1])
 
-for tmp in result_dict:
-    result_dictt.append(json.loads(result_dict[i]))
-    i = i + 1
-print(result_dictt)
+# result_dict = sys.argv[1]
+# result_dictt = []
+# i = 0
+# for tmp in result_dict:
+#     result_dict[i] = result_dict[i].replace("\'", '\\"')
+#     i = i + 1
+# print(result_dict)
+# i = 0
+
+# for tmp in result_dict:
+#     result_dictt.append(json.loads(result_dict[i]))
+#     i = i + 1
+# print(result_dictt)
 sys.exit()
 # 빈 리스트를 만들자
 appid_list = []
