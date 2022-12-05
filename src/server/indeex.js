@@ -37,7 +37,8 @@ app.post('/api/getInfosOnUser', (req, res) => {
 
 app.post('/api/getResultProfileMode', (req, res) => {
   console.log('[gamerecsys@server ~]$ getResultProfileMode');
-  console.log(req.query);
+//  console.log(req.query);
+  console.log(JSON.stringify(req.query));
   var dataToSend;
   const python = spawn('python3', ['collaborativeFilterRecommendmode3.py', req.query.userGames]);
   python.stdout.on('data', function (data) {
