@@ -26,34 +26,20 @@ steamid = 111111
 
 #result_json = result_obj.read()
 
-result_dict = json.loads(sys.argv[1])
-print(result_dict)
-
-# result_dict = sys.argv[1]
-# result_dictt = []
-# i = 0
-# for tmp in result_dict:
-#     result_dict[i] = result_dict[i].replace("\'", '\\"')
-#     i = i + 1
-# print(result_dict)
-# i = 0
-
-# for tmp in result_dict:
-#     result_dictt.append(json.loads(result_dict[i]))
-#     i = i + 1
-# print(result_dictt)
-sys.exit()
+result_dict = json.loads(sys.argv[1].replace("\'", '\\"'))
+result_dictt = []
+for tmp in result_dict['userGames']:
+    result_dictt.append(json.loads(tmp))
 # 빈 리스트를 만들자
 appid_list = []
 title_list = []
 playtime_list = []
 #필요한 데이터만 appid, title, total_playtime
-for tmp in result_dict:
+for tmp in result_dictt:
     appid_list.append(tmp['appid'])
     title_list.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",(tmp['name'].lower()).replace(' ','')))
     playtime_list.append(round(tmp['nbrMins']/60,1))
 # 프린트문으로 list가 잘만들어졌는지 확인해보고
-print("GOOD NAH")
 #print(title_list)
 #print(playtime_list)
 # 이상 없으면 데이터 프레임으로 만들어주자.
