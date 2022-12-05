@@ -23,26 +23,26 @@ steamid = 111111
 
 #result_obj = urllib.request.urlopen(url)
 
-['{"nbrMins":0,"name":"Team Sonic Racing™","appid":"","gameInfos":{"url":"https://cdn.cloudflare.steamstatic.com/steam/apps/785260/header.jpg","type":"app","name":"Team Sonic Racing™","desc_snippet":"Team Sonic Racing combines the best elements of arcade and fast-paced competitive style racing as you face-off with friends in intense multiplayer racing.","genre":"Racing"}}}}', '"nbrMins":0,"name":"PLAYERUNKNOWN\'S BATTLEGROUNDS","appid":"","gameInfos":{"url":"https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg","type":"app","name":"PLAYERUNKNOWN\'S BATTLEGROUNDS","desc_snippet":"PLAYERUNKNOWN\'S BATTLEGROUNDS is a battle royale shooter that pits 100 players against each other in a struggle for survival. Gather supplies and outwit your opponents to become the last person standing.","genre":"Action,Adventure,Massively Multiplayer"}', '"nbrMins":0,"name":"They Are Billions","appid":"","gameInfos":{"url":"https://cdn.cloudflare.steamstatic.com/steam/apps/644930/header.jpg","type":"app","name":"They Are Billions","desc_snippet":"They Are Billions is a Steampunk strategy game set on a post-apocalyptic planet. Build and defend colonies to survive against the billions of the infected that seek to annihilate the few remaining living humans. Can humanity survive after the zombie apocalypse?","genre":"Strategy,Early Access"}}']
-
-
-#result_json = result_obj.read()
-#result_dict = json.loads(sys.argv[1])
-result_dict = sys.argv[1].split('},{')
-result_dictt = []
-i = 0
-for tmp in result_dict:
-    if (i == 0):
-        result_dict[i] = result_dict[i] + '}'
-    else:
-        result_dict[i] = '{' + result_dict[i] + '}'
-    i = i + 1
+result_json = sys.argv[1].read()
+print(result_json)
+result_dict = json.loads(result_json)
 print(result_dict)
-i = 0
-for tmp in result_dict:
-    result_dictt.append(json.loads(result_dict[i]))
-    i = i + 1
-print(result_dictt)
+# result_dict = sys.argv[1].split('},{')
+# result_dictt = []
+# i = 0
+# for tmp in result_dict:
+#     if (i == 0):
+#         result_dict[i] = result_dict[i] + '}'
+#     else:
+#         result_dict[i] = '{' + result_dict[i] + '}'
+#     i = i + 1
+# print(result_dict)
+# i = 0
+
+# for tmp in result_dict:
+#     result_dictt.append(json.loads(result_dict[i]))
+#     i = i + 1
+# print(result_dictt)
 sys.exit()
 # 빈 리스트를 만들자
 appid_list = []

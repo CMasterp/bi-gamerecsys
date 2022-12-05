@@ -39,7 +39,12 @@ app.post('/api/getResultProfileMode', (req, res) => {
   console.log('[gamerecsys@server ~]$ getResultProfileMode');
   console.log(req.query);
   var dataToSend;
-  const python = spawn('python3', ['collaborativeFilterRecommendmode3.py', req.query.userGames]);
+  var userGames = [];
+  for (var i = 0; i < req.query.userGames.length; i++)
+    userGames.push(JSON.stringify(req.query.userGames[i]));
+  console.log("------------");
+  console.log(userGames);
+  const python = spawn('python3', ['collaborativeFilterRecommendmode3.py', userGames]);
   python.stdout.on('data', function (data) {
    console.log('Pipe data from python script ...');
    dataToSend = data.toString();
