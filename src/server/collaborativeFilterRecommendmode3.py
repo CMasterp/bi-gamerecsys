@@ -18,7 +18,7 @@ SteamURL=pd.read_csv('SteamGameData.csv')
 SteamURL=SteamURL.set_index(keys='name')
 SteamURL=SteamURL.loc[:,['url']]
 
-#steamid = sys.argv[1]
+steamid = 111111
 #url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=C43A6789C9607462F9F6BC3601E50B00&steamid='+steamid+'&include_appinfo=1&include_played_free_games=1&format=json'
 
 #result_obj = urllib.request.urlopen(url)
@@ -35,7 +35,7 @@ for tmp in result_dict:
     title_list.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",(tmp['name'].lower()).replace(' ','')))
     playtime_list.append(round(tmp['nbrMins']/60,1))
 # 프린트문으로 list가 잘만들어졌는지 확인해보고
-#print(appid_list)
+print("GOOD NAH")
 #print(title_list)
 #print(playtime_list)
 # 이상 없으면 데이터 프레임으로 만들어주자.
