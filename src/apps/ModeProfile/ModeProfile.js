@@ -68,7 +68,7 @@ const ModeProfile = () => {
 
   const onGenerate = () => {
     setGenerateRec(true);
-    generateRecommendations(userGames).then((response) => {
+    generateRecommendations(userGames.toString()).then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
         const result = response.data.split(/\r?\n/).filter(element => element);

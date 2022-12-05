@@ -24,6 +24,8 @@ steamid = 111111
 #result_obj = urllib.request.urlopen(url)
 
 #result_json = result_obj.read()
+print(sys.argv[1])
+sys.exit()
 result_dict = json.loads(sys.argv[1])
 # 빈 리스트를 만들자
 appid_list = []
