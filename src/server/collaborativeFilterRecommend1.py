@@ -8,7 +8,6 @@ from sklearn.decomposition import TruncatedSVD
 from scipy.sparse.linalg import svds
 import json
 import urllib
-import sys
 import re
 import math
 from sklearn.metrics.pairwise import cosine_similarity
@@ -19,31 +18,31 @@ SteamURL=pd.read_csv('SteamGameData.csv')
 SteamURL=SteamURL.set_index(keys='name')
 SteamURL=SteamURL.loc[:,['url']]
 
-steamid = 111111
+steamid = input('Please enter steamID: ')
+url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=C43A6789C9607462F9F6BC3601E50B00&steamid=76561198884140002&include_appinfo=1&include_played_free_games=1&format=json"
 
-#url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=C43A6789C9607462F9F6BC3601E50B00&steamid='+steamid+'&include_appinfo=1&include_played_free_games=1&format=json'
+result_obj = urllib.request.urlopen(url) 
 
-#result_obj = urllib.request.urlopen(url)
-
-#result_json = result_obj.read()
-
-result_dict = json.loads(sys.argv[1].replace("\'", '\\"'))
-result_dictt = []
-for tmp in result_dict['userGames']:
-    result_dictt.append(json.loads(tmp))
+result_json = result_obj.read()  
+result_dict = json.loads(result_json)  
 # 빈 리스트를 만들자
-appid_list = []
+appid_list = []  
 title_list = []
 playtime_list = []
 #필요한 데이터만 appid, title, total_playtime
-for tmp in result_dictt:
+#for tmp in result_dict['response']['games']:
+#    appid_list.append(tmp['appid'])
+#    title_list.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",(tmp['name'].lower()).replace(' ','')))
+#    playtime_list.append(round(tmp['playtime_forever']/60,1))
+for tmp in result_dict['response']['games']:
     appid_list.append(tmp['appid'])
     title_list.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",(tmp['name'].lower()).replace(' ','')))
-    if(tmp['nbrMins']!=0):
-        playtime_list.append(round(math.log10(tmp['nbrMins']/60),1))
+    if(tmp['playtime_forever']!=0):
+        playtime_list.append(round(math.log10(tmp['playtime_forever']/60),1))
     else:
         playtime_list.append(0)
 # 프린트문으로 list가 잘만들어졌는지 확인해보고
+#print(appid_list)
 #print(title_list)
 #print(playtime_list)
 # 이상 없으면 데이터 프레임으로 만들어주자.
@@ -79,6 +78,9 @@ frames = [UserGamePlaytime,UserDataset]
 
 UserGamePlaytime = pd.concat(frames)
 #display(UserGamePlaytime)
+
+
+
 
 # colaborative filtering
 
