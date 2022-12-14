@@ -10,7 +10,6 @@ import json
 import urllib
 import sys
 import re
-import math
 from sklearn.metrics.pairwise import cosine_similarity
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -39,10 +38,7 @@ playtime_list = []
 for tmp in result_dictt:
     appid_list.append(tmp['appid'])
     title_list.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",(tmp['name'].lower()).replace(' ','')))
-    if(tmp['nbrMins']!=0):
-        playtime_list.append(round(math.log10(tmp['nbrMins']/60),1))
-    else:
-        playtime_list.append(0)
+    playtime_list.append(round(int(tmp['nbrMins'])/60,1))
 # 프린트문으로 list가 잘만들어졌는지 확인해보고
 #print(title_list)
 #print(playtime_list)
@@ -63,7 +59,6 @@ gamelist=[]
 for titles in UserGamePlaytime['Game']:
     gamelist.append(re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "",titles.lower().replace(' ','')))
 UserGamePlaytime['Game'] = gamelist
-UserGamePlaytime['hoursPlayed']=round(np.log10(UserGamePlaytime['hoursPlayed']))
 # save as csv
 UserGamePlaytime.to_csv('Presteam-200k-3.csv')
 
